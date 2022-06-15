@@ -1,0 +1,23 @@
+# service
+service: helloer-service
+
+# framework version
+frameworkVersion: ">1.5 <2.0"
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: eu-central-1
+
+functions:
+  helloer: 
+    handler: helloer.hello_handler
+    name: helloer
+    events:
+      - http:
+          path: /hello
+          method: GET
+      - schedule:
+          name: my-scheduler 
+          rate: rate(1 minute)
